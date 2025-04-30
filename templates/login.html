@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion - LEONI Diagnostic</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --leoni-dark-blue: #003366;
+            --leoni-blue: #0055a5;
+            --leoni-light-blue: #3399cc;
+            --leoni-accent: #00a0e3;
+            --error-color: #c62828;
+            --gray-100: #f5f5f5;
+            --gray-200: #eeeeee;
+            --gray-300: #e0e0e0;
+            --white: #ffffff;
+            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.1);
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --transition-normal: 0.3s ease;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--gray-100);
+            position: relative;
+        }
+
+        .background-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                linear-gradient(30deg, var(--gray-200) 12%, transparent 12.5%, transparent 87%, var(--gray-200) 87.5%, var(--gray-200)),
+                linear-gradient(150deg, var(--gray-200) 12%, transparent 12.5%, transparent 87%, var(--gray-200) 87.5%, var(--gray-200)),
+                linear-gradient(30deg, var(--gray-200) 12%, transparent 12.5%, transparent 87%, var(--gray-200) 87.5%, var(--gray-200)),
+                linear-gradient(150deg, var(--gray-200) 12%, transparent 12.5%, transparent 87%, var(--gray-200) 87.5%, var(--gray-200));
+            background-size: 80px 140px;
+            background-position: 0 0, 0 0, 40px 70px, 40px 70px;
+            z-index: -1;
+            opacity: 0.4;
+        }
+
+        .login-container {
+            width: 90%;
+            max-width: 450px;
+            padding: 2.5rem;
+            background-color: var(--white);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, var(--leoni-dark-blue), var(--leoni-accent));
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo {
+            height: 60px;
+            margin-right: 1rem;
+        }
+
+        .leoni-brand {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            color: var(--leoni-dark-blue);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--leoni-light-blue);
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            font-weight: 700;
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        h1::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--leoni-accent);
+            border-radius: 2px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
+            border: 1px solid var(--gray-300);
+            border-radius: var(--radius-md);
+            transition: border-color var(--transition-normal);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--leoni-accent);
+            box-shadow: 0 0 0 2px rgba(0, 160, 227, 0.2);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--leoni-blue), var(--leoni-dark-blue));
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .login-btn:hover {
+            background: linear-gradient(135deg, var(--leoni-blue), var(--leoni-accent));
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .login-btn:active {
+            transform: translateY(1px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .error-message {
+            color: var(--error-color);
+            background-color: #ffebee;
+            padding: 0.75rem;
+            border-radius: var(--radius-sm);
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .login-container {
+            animation: fadeIn 0.5s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="background-pattern"></div>
+
+    <div class="login-container">
+        <div class="logo-container">
+            <div class="leoni-brand">LEONI</div>
+        </div>
+        <h1>Connexion</h1>
+
+        {% if error %}
+        <div class="error-message">
+            {{ error }}
+        </div>
+        {% endif %}
+
+        <form method="post" action="{{ url_for('login') }}">
+            <div class="form-group">
+                <label for="username">Identifiant</label>
+                <input type="text" class="form-control" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Mot de passe</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            <button type="submit" class="login-btn">Connexion</button>
+        </form>
+    </div>
+</body>
+</html>

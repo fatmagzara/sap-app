@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rapport Diagnostic LEONI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.0/socket.io.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="background-pattern"></div>
+    <div id="connection-status" class="status-indicator status-disconnected">🔴 Raspberry Pi Déconnecté</div>
+
+    <div class="leoni-brand">LEONI</div>
+    <div class="header">
+        <h1>Rapport Diagnostic</h1>
+    </div>
+
+    <div class="container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Test</th>
+                    <th>Action</th>
+                    <th>Résultat</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Test de la Bobine</td>
+                    <td><button class="test-btn" onclick="startTest('Bobine', this)">Lancer Test</button></td>
+                    <td id="result_Bobine">{{ results.Bobine }}</td>
+                </tr>
+                <tr>
+                    <td>Test des Lames</td>
+                    <td><button class="test-btn" onclick="startTest('Lames', this)">Lancer Test</button></td>
+                    <td id="result_Lames">{{ results.Lames }}</td>
+                </tr>
+                <tr>
+                    <td>Test des Capteurs</td>
+                    <td><button class="test-btn" onclick="startTest('Capteurs', this)">Lancer Test</button></td>
+                    <td id="result_Capteurs">{{ results.Capteurs }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="action-buttons">
+            <button class="action-btn generate-btn" onclick="generateCertificationTicket()">Générer Ticket</button>
+            <button class="action-btn history-btn" onclick="showHistory()">Historique</button>
+        </div>
+
+        <div id="certification-ticket">
+            <h2>Ticket de Certification</h2>
+            <p>Date: <span id="ticket-date"></span></p>
+            <p id="ticket_Bobine">Test Bobine: En attente...</p>
+            <p id="ticket_Lames">Test des Lames: En attente...</p>
+            <p id="ticket_Capteurs">Test des Capteurs: En attente...</p>
+            <button class="action-btn print-btn" onclick="printTicket()">Imprimer</button>
+        </div>
+
+        <div style="text-align: center; margin-top: 40px;">
+            <button class="action-btn logout-btn" onclick="logout()">Déconnexion</button>
+        </div>
+    </div>
+
+    <div id="history-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeHistory()">&times;</span>
+            <h2>Historique des Tests</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Test</th>
+                        <th>Résultat</th>
+                    </tr>
+                </thead>
+                <tbody id="history-tbody">
+                    <!-- History will be populated dynamically -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
